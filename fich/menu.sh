@@ -32,7 +32,17 @@ function activarApache()
 ###########################################################
 function instalarPHP()
 {
-	
+	aux=$(aptitude show php | grep "State: installed")
+	aux2=$(aptitude show apache2 | grep "Estado: instalado")
+	aux3=$aux$aux2
+	if [ -z "$aux3" ]
+	then 
+ 	  echo "instalando ..."
+ 	  sudo apt-get install apache2
+	else
+   	  echo "apache ya estaba instalado"
+    
+	fi 
 }
 
 ###########################################################
