@@ -22,181 +22,81 @@ function apacheInstall()
 ###########################################################
 #                  2) Activar el servicio Web Apache      #
 ###########################################################
-function apacheInstall()
+function activarApache()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #                  3) Instalar el módulo PHP              #
 ###########################################################
-function apacheInstall()
+function instalarPHP()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #                  4) Testear el módulo PHP               #
 ###########################################################
-function apacheInstall()
+function testPHP()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	 
 }
 
 ###########################################################
 #            5) Crear un entorno virtual para Python3     #
 ###########################################################
-function apacheInstall()
+function crearEntornoPython()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #          6) Instalar los paquetes necesarios            #
 ###########################################################
-function apacheInstall()
+function instalarPaquetes()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #                  7) Probar aplicación                   #
 ###########################################################
-function apacheInstall()
+function probarAplicacion()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #                  8) Instalar aplicación                 #
 ###########################################################
-function apacheInstall()
+function instalarAplicacion()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #                  9) Abrir con Firefox                   #
 ###########################################################
-function apacheInstall()
+function abrirFirefox()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #                        10) Ver logs                     #
 ###########################################################
-function apacheInstall()
+function verLogs()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
 #          11) Controlar intentos de conexión             #
 ###########################################################
-function apacheInstall()
+function controlarConexion()
 {
-	aux=$(aptitude show apache2 | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
-	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
-	else
-   	  echo "apache ya estaba instalado"
-    
-	fi 
+	
 }
 
 ###########################################################
@@ -233,16 +133,16 @@ do
 	read -p "Elige una opcion:" opcionmenuppal
 	case $opcionmenuppal in
 			1) apacheInstall;;
-			2) apacheInstall;;
-			3) apacheInstall;;
-			4) apacheInstall;;
-			5) apacheInstall;;
-			6) apacheInstall;;
-			7) apacheInstall;;
-			8) apacheInstall;;
-			9) apacheInstall;;
-			10) apacheInstall;;
-			11) apacheInstall;;
+			2) activarApache;;
+			3) instalarPHP;;
+			4) testPHP;;
+			5) crearEntornoPython;;
+			6) instalarPaquetes;;
+			7) probarAplicacion;;
+			8) instalarAplicacion;;
+			9) abrirFirefox;;
+			10) verLogs;;
+			11) controlarConexion;;
 			12) fin;;
 			*) ;;
 
