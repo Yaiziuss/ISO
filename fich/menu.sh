@@ -24,7 +24,7 @@ function apacheInstall()
 ###########################################################
 function activarApache()
 {
-	
+	echo u
 }
 
 ###########################################################
@@ -32,16 +32,22 @@ function activarApache()
 ###########################################################
 function instalarPHP()
 {
-	aux=$(aptitude show php | grep "State: installed")
-	aux2=$(aptitude show apache2 | grep "Estado: instalado")
-	aux3=$aux$aux2
-	if [ -z "$aux3" ]
+	aux=$(aptitude show php | grep "Estado: instalado")
+	aux2=$(aptitude show libapache2-mod-php | grep "Estado: instalado")
+	if [ -z "$aux" ]
 	then 
- 	  echo "instalando ..."
- 	  sudo apt-get install apache2
+ 	  echo "Instalando paquete PHP ..."
+ 	  sudo apt install php
 	else
-   	  echo "apache ya estaba instalado"
+   	  echo "El paquete PHP ya estaba instalado"
+ 	fi
     
+	if [ -z "$aux2" ]
+	then
+	  echo "Instalando paquete libapache2-mod-php ..."
+	  sudo apt install libapache2-mod-php
+	else
+	  echo "El paquete libapache2-mod-php ya estaba instalado"
 	fi 
 }
 
@@ -50,7 +56,7 @@ function instalarPHP()
 ###########################################################
 function testPHP()
 {
-	 
+	echo u
 }
 
 ###########################################################
@@ -58,7 +64,7 @@ function testPHP()
 ###########################################################
 function crearEntornoPython()
 {
-	
+	echo u
 }
 
 ###########################################################
@@ -66,7 +72,7 @@ function crearEntornoPython()
 ###########################################################
 function instalarPaquetes()
 {
-	
+	echo u
 }
 
 ###########################################################
@@ -74,7 +80,7 @@ function instalarPaquetes()
 ###########################################################
 function probarAplicacion()
 {
-	
+	echo u
 }
 
 ###########################################################
@@ -82,7 +88,7 @@ function probarAplicacion()
 ###########################################################
 function instalarAplicacion()
 {
-	
+	echo u
 }
 
 ###########################################################
@@ -90,7 +96,7 @@ function instalarAplicacion()
 ###########################################################
 function abrirFirefox()
 {
-	
+	echo u
 }
 
 ###########################################################
@@ -98,7 +104,7 @@ function abrirFirefox()
 ###########################################################
 function verLogs()
 {
-	
+	echo u
 }
 
 ###########################################################
@@ -106,7 +112,7 @@ function verLogs()
 ###########################################################
 function controlarConexion()
 {
-	
+	echo u
 }
 
 ###########################################################
