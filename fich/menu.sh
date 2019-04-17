@@ -36,18 +36,18 @@ function instalarPHP()
 	aux2=$(aptitude show libapache2-mod-php | grep "Estado: instalado")
 	if [ -z "$aux" ]
 	then 
- 	  echo "Instalando paquete PHP ...\n"
+ 	  echo -e "Instalando paquete PHP ...\n"
  	  sudo apt install php
 	else
-   	  echo "El paquete PHP ya estaba instalado\n"
+   	  echo -e "El paquete PHP ya estaba instalado\n"
  	fi
     
 	if [ -z "$aux2" ]
 	then
-	  echo "Instalando paquete libapache2-mod-php ...\n"
+	  echo -e "Instalando paquete libapache2-mod-php ...\n"
 	  sudo apt install libapache2-mod-php
 	else
-	  echo "El paquete libapache2-mod-php ya estaba instalado\n"
+	  echo -e "El paquete libapache2-mod-php ya estaba instalado\n"
 	fi 
 }
 
