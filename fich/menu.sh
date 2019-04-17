@@ -22,9 +22,30 @@ function apacheInstall()
 ###########################################################
 #                  2) Activar el servicio Web Apache      #
 ###########################################################
-function activarApache()
-{
-	echo u
+function activarApache(){
+	aux=$(aptitude show apache2 | grep "State: installed")
+	aux2=$(aptitude show apache2 | grep "Estado: instalado")
+	aux3=$aux$aux2
+	if [ -z "$aux3" ]
+	then 
+ 	  echo "instalando ..."
+ 	  sudo apt-get install apache2
+	else
+   	  echo "apache ya estaba iniciado"
+	fi
+    	aux=$(sudo netstat -anp | grep "¿Apache escuchado?")
+	aux2=$(sudo netstat -anp | grep "¿Apache escuchado?")
+	aux3=$aux4$aux5
+	if [ -z "$aux3" ] 
+	then
+		sudo netstat -anp | grep apache
+		
+	else 
+		sudo apt-get install net-tools
+
+	fi
+	echo "Vamos a abrir firefox con tu localhost"
+	firefox http://127.0.0.1 
 }
 
 ###########################################################
