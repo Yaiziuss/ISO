@@ -1,6 +1,20 @@
 ##Instalacion y Mantenimiento de una Aplicacion Web
 #Importar funciones de otros ficheros
 
+
+
+###########################################################
+#                  0) DESINSTALAR                         #
+###########################################################
+
+function desinstalar(){
+sudo service apache2 stop
+	sudo apt-get update
+	sudo apt-get purge apache2 apache2-utils apache2-data
+	sudo apt-get purge php libapache2-mod-php
+	sudo apt-get autoremove
+	sudo rm -rf /var/www/html/*
+}
 ###########################################################
 #                  1) INSTALL APACHE                     #
 ###########################################################
@@ -101,9 +115,25 @@ function crearEntornoPython()
 ###########################################################
 #          6) Instalar los paquetes necesarios            #
 ###########################################################
-function instalarPaquetes()
-{
-	echo u
+function instalarPaquetes(){
+echo "--------------------------------------------------------"
+echo "Vamos a instalar el pip de python 3"
+sudo apt-get install python3-pip
+echo "--------------------------------------------------------"
+echo "Instalado"
+echo "--------------------------------------------------------"
+echo "Vamos a instalar dos2unix"
+sudo apt-get install dos2unix
+echo "--------------------------------------------------------"	
+echo "Instalado"
+echo "--------------------------------------------------------"
+#Hay que iniciar el entorno virtual para instalar todo esto de abajo
+#sudo apt install python-numpy 
+#o
+#sudo pip3 install numpy
+#sudo pip3 install -U nltk
+#sudo apt-get install -y python-argparse
+# desactivar el entorno python
 }
 
 ###########################################################
@@ -164,9 +194,11 @@ function fin()
 opcionmenuppal=0
 sudo apt-get update
 sudo apt-get upgrade
+echo -e "\n"
 while test $opcionmenuppal -ne 12
 do
 	#Muestra el menu
+	echo -e "0 Desinstalar todo \n"
 	echo -e "1 Instala Apache \n"
 	echo -e "2 Activar Apache \n"
 	echo -e "3 Instala PHP \n"
@@ -181,6 +213,7 @@ do
 	echo -e "12 Salir \n"
 	read -p "Elige una opcion:" opcionmenuppal
 	case $opcionmenuppal in
+			0) desinstalar;;
 			1) apacheInstall;;
 			2) activarApache;;
 			3) instalarPHP;;
