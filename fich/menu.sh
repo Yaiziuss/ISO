@@ -6,6 +6,7 @@
 ###########################################################
 function apacheInstall()
 {
+	echo "--------------------------------------------------------"
 	aux=$(aptitude show apache2 | grep "State: installed")
 	aux2=$(aptitude show apache2 | grep "Estado: instalado")
 	aux3=$aux$aux2
@@ -23,6 +24,7 @@ function apacheInstall()
 #                  2) Activar el servicio Web Apache      #
 ###########################################################
 function activarApache(){
+	echo "--------------------------------------------------------"
 	aux=$(aptitude show apache2 | grep "State: installed")
 	aux2=$(aptitude show apache2 | grep "Estado: instalado")
 	aux3=$aux$aux2
@@ -31,21 +33,29 @@ function activarApache(){
  	  echo "instalando ..."
  	  sudo apt-get install apache2
 	else
-   	  echo "apache ya estaba iniciado"
+   	  echo "apache ya estaba instalado"
 	fi
-    	aux=$(sudo netstat -anp | grep "¿Apache escuchado?")
-	aux2=$(sudo netstat -anp | grep "¿Apache escuchado?")
-	aux3=$aux4$aux5
-	if [ -z "$aux3" ] 
+	#Iniciamos apache
+	sudo /etc/init.d/apache2 start
+    	echo "Apache esta inicializado"
+echo "--------------------------------------------------------"
+	echo "Vamos a ver el puerto del que esta escuchando, para ello, vamos a ver si tienes la herramienta necesaria instalada."
+	echo "--------------------------------------------------------"
+	aux=$( netstat )
+	if [ -z "aux" ]
 	then
-		sudo netstat -anp | grep apache
-		
-	else 
 		sudo apt-get install net-tools
-
-	fi
+	else
+		echo "Net-tools ya esta instalando"
+	fi 
+	echo "--------------------------------------------------------"
+	echo "¿Por qué puerto escucha apache?"
+	sudo netstat -anp | grep apache2
+	echo "--------------------------------------------------------"
 	echo "Vamos a abrir firefox con tu localhost"
-	firefox http://127.0.0.1 
+	firefox http://127.0.0.1 & 
+	echo "--------------------------------------------------------"
+	sleep 1
 }
 
 ###########################################################
@@ -152,6 +162,8 @@ function fin()
 
 ### Main ###
 opcionmenuppal=0
+sudo apt-get update
+sudo apt-get upgrade
 while test $opcionmenuppal -ne 12
 do
 	#Muestra el menu
