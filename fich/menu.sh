@@ -101,7 +101,13 @@ function instalarPHP()
 ###########################################################
 function testPHP()
 {
-	echo u
+		echo "hello hello"
+	    	echo "Testeando PHP..."
+		touch /tmp/test.php
+		echo "<?php phpinfo(); ?>" >> /tmp/test.php 
+		sudo mv /tmp/test.php /var/www/php/test.php
+		sudo chmod 644 /var/www/php/test.php
+		firefox 127.0.0.1/test.php
 }
 
 ###########################################################
@@ -149,7 +155,11 @@ function probarAplicacion()
 ###########################################################
 function instalarAplicacion()
 {
-	echo u
+	cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
+	chmod 744 /var/www/html
+	cd /var/www/html
+	./webprocess.sh   english.doc.txt
+	
 }
 
 ###########################################################
