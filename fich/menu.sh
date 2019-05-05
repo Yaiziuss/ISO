@@ -77,6 +77,7 @@ echo "--------------------------------------------------------"
 ###########################################################
 function instalarPHP()
 {
+	echo "--------------------------------------------------------"	
 	aux=$(aptitude show php | grep "Estado: instalado")
 	aux2=$(aptitude show libapache2-mod-php | grep "Estado: instalado")
 	if [ -z "$aux" ]
@@ -86,7 +87,7 @@ function instalarPHP()
 	else
    	  echo -e "El paquete PHP ya estaba instalado\n"
  	fi
-    
+    	echo "--------------------------------------------------------"
 	if [ -z "$aux2" ]
 	then
 	  echo -e "Instalando paquete libapache2-mod-php ...\n"
@@ -94,6 +95,7 @@ function instalarPHP()
 	else
 	  echo -e "El paquete libapache2-mod-php ya estaba instalado\n"
 	fi 
+	echo "--------------------------------------------------------"
 }
 
 ###########################################################
@@ -101,21 +103,48 @@ function instalarPHP()
 ###########################################################
 function testPHP()
 {
+		echo "--------------------------------------------------------"
 		echo "hello hello"
 	    	echo "Testeando PHP..."
+		echo "--------------------------------------------------------"
 		touch /tmp/test.php
 		echo "<?php phpinfo(); ?>" >> /tmp/test.php 
+		echo "--------------------------------------------------------"
 		sudo mv /tmp/test.php /var/www/php/test.php
+		echo "--------------------------------------------------------"
 		sudo chmod 644 /var/www/php/test.php
+		echo "--------------------------------------------------------"
 		firefox 127.0.0.1/test.php
+		echo "--------------------------------------------------------"
 }
 
 ###########################################################
 #            5) Crear un entorno virtual para Python3     #
 ###########################################################
-function crearEntornoPython()
-{
-	echo u
+function crearEntornoVirtualPython3(){
+aux=$(aptitude show virtualenv | grep "State: installed")
+aux2=$(aptitude show virtualenv | grep "Estado: instalado")
+aux3=$aux$aux2
+	echo "--------------------------------------------------------"
+	if [ -z "$aux3" ]
+	then 
+	  echo "instalando ..."
+ 	  sudo apt-get install virtualenv
+	else
+   	  echo "virtualenv ya estaba instalado"
+    	  sleep 2
+	fi 
+	echo "--------------------------------------------------------"
+	if [ -d "python3envmetrix" ] 
+	#si existe la carpeta devuelve true y sino false
+	then 
+	  echo "La carpeta ya esta creada"
+	  sleep 3
+	else
+          virtualenv -p /usr/bin/python3 python3envmetrix
+	  sleep 5
+	fi
+	echo "--------------------------------------------------------"
 }
 
 ###########################################################
@@ -153,8 +182,7 @@ function probarAplicacion()
 ###########################################################
 #                  8) Instalar aplicación                 #
 ###########################################################
-function instalarAplicacion()
-{
+function instalarAplicacion(){
 	cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
 	chmod 744 /var/www/html
 	cd /var/www/html
@@ -217,7 +245,7 @@ do
 	echo -e "6 Instala paquetes necesarios \n"
 	echo -e "7 Probar aplicación \n"
 	echo -e "8 Instalar aplicación \n"
-	echo -e "9 abrir plicación con Firefox \n"
+	echo -e "9 abrir aplicación con Firefox \n"
 	echo -e "10 Ver logs \n"
 	echo -e "11 Controlar intentos de conexión de ssh \n"
 	echo -e "12 Salir \n"
