@@ -63,7 +63,9 @@ function activarApache(){
 echo "--------------------------------------------------------"
 	echo "Vamos a ver el puerto del que esta escuchando, para ello, vamos a ver si tienes la herramienta necesaria instalada."
 	echo "--------------------------------------------------------"
-	aux=$( netstat )
+	aux=$(aptitude show net-tools | grep "State: installed")
+	aux2=$(aptitude show net-tools | grep "Estado: instalado")
+	aux3=$aux$aux2
 	if [ -z "aux" ]
 	then
 		sudo apt-get install net-tools
@@ -130,9 +132,9 @@ function testPHP()
 #            5) Crear un entorno virtual para Python3     #
 ###########################################################
 function crearEntornoPython(){
-	aux=$(aptitude show virtualenv | grep "State: installed")
-	aux2=$(aptitude show virtualenv | grep "Estado: instalado")
-	aux3=$aux$aux2
+aux=$(aptitude show virtualenv | grep "State: installed")
+aux2=$(aptitude show virtualenv | grep "Estado: instalado")
+aux3=$aux$aux2
 	echo "--------------------------------------------------------"
 	if [ -z "$aux3" ]
 	then 
@@ -229,7 +231,7 @@ function instalarPaquetes(){
 	then 	
 		echo "--------------------------------------------------------"
 		echo "Vamos a instalar -U nltk"
-		sudo pip3 install nltk
+		sudo pip3 install -U nltk
 		echo "--------------------------------------------------------"
 		echo "Instalado"
 		echo "--------------------------------------------------------"
@@ -270,10 +272,12 @@ function instalarPaquetes(){
 ###########################################################
 function probarAplicacion()
 {
-	cd proyecto/ISO/fich/
+	echo "--------------------------------------------------------"
+	 cd proyecto/ISO/fich/
         source python3envmetrix/bin/activate
         python3 complejidadtextual.py textos/english.doc.txt
         deactivate
+	echo "--------------------------------------------------------"
 }
 
 ###########################################################
@@ -291,9 +295,13 @@ function instalarAplicacion(){
 ###########################################################
 #                  9) Abrir con Firefox                   #
 ###########################################################
-function abrirFirefox()
-{
-	echo u
+function abrirFirefox(){
+	echo "--------------------------------------------------------"
+	sudo mv /tmp/index.php /var/www/html/index.php
+	echo "--------------------------------------------------------"
+	echo "Abriendo la Aplicación desde Firefox"
+	echo "--------------------------------------------------------"
+	firefox http://localhost/index.php &
 }
 
 ###########################################################
@@ -328,11 +336,8 @@ function fin()
 
 ### Main ###
 opcionmenuppal=0
-cd
-mkdir proyecto
-cp -r GitKraken/ISO/ proyecto
-#sudo apt-get update
-#sudo apt-get upgrade
+sudo apt-get update
+sudo apt-get upgrade
 echo -e "\n"
 while test $opcionmenuppal -ne 12
 do
