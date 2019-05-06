@@ -118,9 +118,9 @@ function testPHP()
 		sudo touch /tmp/test.php
 		echo "<?php phpinfo(); ?>" >> /tmp/test.php 
 		echo "--------------------------------------------------------"
-		sudo mv /tmp/test.php /var/www/php/test.php
+		sudo mv /tmp/test.php /var/www/html/test.php
 		echo "--------------------------------------------------------"
-		sudo chmod 644 /var/www/php/test.php
+		sudo chmod 644 /var/www/html/test.php
 		echo "--------------------------------------------------------"
 		firefox 127.0.0.1/test.php
 		echo "--------------------------------------------------------"
