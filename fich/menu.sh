@@ -130,9 +130,9 @@ function testPHP()
 #            5) Crear un entorno virtual para Python3     #
 ###########################################################
 function crearEntornoPython(){
-aux=$(aptitude show virtualenv | grep "State: installed")
-aux2=$(aptitude show virtualenv | grep "Estado: instalado")
-aux3=$aux$aux2
+	aux=$(aptitude show virtualenv | grep "State: installed")
+	aux2=$(aptitude show virtualenv | grep "Estado: instalado")
+	aux3=$aux$aux2
 	echo "--------------------------------------------------------"
 	if [ -z "$aux3" ]
 	then 
@@ -270,8 +270,9 @@ function instalarPaquetes(){
 ###########################################################
 function probarAplicacion()
 {
-        source /home/xabier/GitKraken/ISO/fich/python3envmetrix/bin/activate
-        python /home/xabier/GitKraken/ISO/fich/complejidadtextual.py /home/xabier/GitKraken/ISO/fich/textos/english.doc.txt
+	cd proyecto/ISO/fich/
+        source python3envmetrix/bin/activate
+        python3 complejidadtextual.py textos/english.doc.txt
         deactivate
 }
 
@@ -279,9 +280,10 @@ function probarAplicacion()
 #                  8) Instalar aplicación                 #
 ###########################################################
 function instalarAplicacion(){
-	cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
-	chmod 744 /var/www/html
-	cd /var/www/html
+	sudo cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
+	sudo cp -R python3envmetrix /var/www/html
+	sudo chmod 744 /var/www/html
+	sudo cd /var/www/html
 	./webprocess.sh   english.doc.txt
 	
 }
@@ -326,8 +328,11 @@ function fin()
 
 ### Main ###
 opcionmenuppal=0
-sudo apt-get update
-sudo apt-get upgrade
+cd
+mkdir proyecto
+cp -r GitKraken/ISO/ proyecto
+#sudo apt-get update
+#sudo apt-get upgrade
 echo -e "\n"
 while test $opcionmenuppal -ne 12
 do
