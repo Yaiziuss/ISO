@@ -270,7 +270,9 @@ function instalarPaquetes(){
 ###########################################################
 function probarAplicacion()
 {
-	echo u
+        source /home/xabier/GitKraken/ISO/fich/python3envmetrix/bin/activate
+        python /home/xabier/GitKraken/ISO/fich/complejidadtextual.py /home/xabier/GitKraken/ISO/fich/textos/english.doc.txt
+        deactivate
 }
 
 ###########################################################

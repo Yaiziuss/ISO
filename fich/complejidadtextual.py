@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 import nltk
 import sys
 import re
@@ -112,10 +112,7 @@ def text_statistics(text):
     syllable_count = sum(map(lambda w: allnumsyllables(w), word_tokenize(text)))
     return word_count, sent_count, syllable_count
 
-#It would be useful to go through an example of a word with more than one pronunciations, 
-#such as prondict[‘orange’] gives:[[u'AO1', u'R', u'AH0', u'N', u'JH'], [u'AO1', u'R', u'IH0', u'N', u'JH']]
-#For simplicity, if there are more than one pronunciations, 
-#I take the largest number of syllables in subsequent calculations. 
+ 
 flesch_formula = lambda word_count, sent_count, syllable_count : 206.835 - 1.015*word_count/sent_count - 84.6*syllable_count/word_count
 def get_syllable_count(text):
 	return (sum(map(lambda w: allnumsyllables(w), word_tokenize(text))))
@@ -158,8 +155,8 @@ for input in ficheros:
 
 
 	######Informacion lectora- silabas
-	#Flesch-Kincaid grade level =0.39 * (n.º de palabras/nº de frases) + 11.8 * (n.º de silabas/número de palabras) – 15.59)
-	#Flesch readability ease=206.835-1.015(n.º de palabras/nº de frases)-84.6(n.º de silabas/número de palabras) 
+	#Flesch-Kincaid grade level =0.39 * (n. de palabras/n de frases) + 11.8 * (n. de silabas/numero de palabras) – 15.59)
+	#Flesch readability ease=206.835-1.015(n. de palabras/n de frases)-84.6(n. de silabas/numero de palabras) 
 	print('Number of syllables:'+str(get_syllable_count(text)))
 	estfile.write("\n%s" % 'Number of syllables:'+str(get_syllable_count(text)))
 	print("Flesch-Kincaid grade level:"+str(flesch_kincaid(text)))
