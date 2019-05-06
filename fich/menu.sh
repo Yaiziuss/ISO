@@ -8,12 +8,19 @@
 ###########################################################
 
 function desinstalar(){
-sudo service apache2 stop
+	echo "--------------------------------------------------------"
+	sudo service apache2 stop
+	echo "--------------------------------------------------------"
 	sudo apt-get update
+	echo "--------------------------------------------------------"
 	sudo apt-get purge apache2 apache2-utils apache2-data
+	echo "--------------------------------------------------------"
 	sudo apt-get purge php libapache2-mod-php
+	echo "--------------------------------------------------------"
 	sudo apt-get autoremove
+	echo "--------------------------------------------------------"
 	sudo rm -rf /var/www/html/*
+	echo "--------------------------------------------------------"
 }
 ###########################################################
 #                  1) INSTALL APACHE                     #
@@ -31,7 +38,8 @@ function apacheInstall()
 	else
    	  echo "apache ya estaba instalado"
     
-	fi 
+	fi
+	echo "--------------------------------------------------------" 
 }
 
 ###########################################################
@@ -107,7 +115,7 @@ function testPHP()
 		echo "hello hello"
 	    	echo "Testeando PHP..."
 		echo "--------------------------------------------------------"
-		touch /tmp/test.php
+		sudo touch /tmp/test.php
 		echo "<?php phpinfo(); ?>" >> /tmp/test.php 
 		echo "--------------------------------------------------------"
 		sudo mv /tmp/test.php /var/www/php/test.php
@@ -121,7 +129,7 @@ function testPHP()
 ###########################################################
 #            5) Crear un entorno virtual para Python3     #
 ###########################################################
-function crearEntornoVirtualPython3(){
+function crearEntornoPython(){
 aux=$(aptitude show virtualenv | grep "State: installed")
 aux2=$(aptitude show virtualenv | grep "Estado: instalado")
 aux3=$aux$aux2
@@ -135,13 +143,13 @@ aux3=$aux$aux2
     	  sleep 2
 	fi 
 	echo "--------------------------------------------------------"
-	if [ -d "python3envmetrix" ] 
+	if [ -z "python3envmetrix" ] 
 	#si existe la carpeta devuelve true y sino false
 	then 
 	  echo "La carpeta ya esta creada"
 	  sleep 3
 	else
-          virtualenv -p /usr/bin/python3 python3envmetrix
+          virtualenv python3envmetrix
 	  sleep 5
 	fi
 	echo "--------------------------------------------------------"
@@ -151,17 +159,103 @@ aux3=$aux$aux2
 #          6) Instalar los paquetes necesarios            #
 ###########################################################
 function instalarPaquetes(){
-echo "--------------------------------------------------------"
-echo "Vamos a instalar el pip de python 3"
-sudo apt-get install python3-pip
-echo "--------------------------------------------------------"
-echo "Instalado"
-echo "--------------------------------------------------------"
-echo "Vamos a instalar dos2unix"
-sudo apt-get install dos2unix
-echo "--------------------------------------------------------"	
-echo "Instalado"
-echo "--------------------------------------------------------"
+	aux=$(aptitude show python3-pip | grep "State: installed")
+	aux2=$(aptitude show python3-pip| grep "Estado: instalado")
+	aux3=$aux$aux2
+	if [ -z "$aux3" ]
+	then 	
+		echo "--------------------------------------------------------"
+		echo "Vamos a instalar el pip de python 3"
+		sudo apt-get install python3-pip
+		echo "--------------------------------------------------------"
+		echo "Instalado"
+		echo "--------------------------------------------------------"
+	else
+		echo "--------------------------------------------------------"
+		echo "python 3 pip ya estaba instalado"
+		echo "--------------------------------------------------------"
+	fi
+	aux=$(aptitude show dos2unix | grep "State: installed")
+	aux2=$(aptitude show dos2unix | grep "Estado: instalado")
+	aux3=$aux$aux2
+	if [ -z "$aux3" ]
+	then 	
+		echo "--------------------------------------------------------"
+		echo "Vamos a instalar dos2unix"
+		sudo apt-get install dos2unix
+		echo "--------------------------------------------------------"
+		echo "Instalado"
+		echo "--------------------------------------------------------"
+	else
+		echo "--------------------------------------------------------"
+		echo "dos2unix ya estaba instalado"
+		echo "--------------------------------------------------------"
+	fi
+	aux4=$(crearEntornoPython| grep "Antes de seguir necesitamos tener el entorno python instalado")
+	aux3=$aux$aux2
+	if [ -z "$aux3" ]
+	then 
+		echo "--------------------------------------------------------"
+		echo "Instalado"
+		echo "--------------------------------------------------------"	
+		crearEntornoPython
+	else
+		echo "--------------------------------------------------------"
+		echo "el entorno python ya estaba instalado"
+		echo "--------------------------------------------------------"
+	fi
+	cd python3envmetrix/bin/ 
+	source activate
+	aux=$(aptitude show python-numpy | grep "State: installed")
+	aux2=$(aptitude show python-numpy | grep "Estado: instalado")
+	if [ -z "$aux3" ]
+	aux3=$aux$aux2
+	then 	
+		echo "--------------------------------------------------------"
+		echo "Vamos a instalar python-numpy"
+		sudo apt-get install python-numpy
+		echo "--------------------------------------------------------"
+		echo "Instalado"
+		echo "--------------------------------------------------------"
+	else
+		echo "--------------------------------------------------------"
+		echo "python-numpy ya estaba instalado"
+		echo "--------------------------------------------------------"
+	fi
+	aux=$(aptitude show nltk | grep "State: installed")
+	aux2=$(aptitude show nltk | grep "Estado: instalado")
+	aux3=$aux$aux2
+	if [ -z "$aux3" ]
+	then 	
+		echo "--------------------------------------------------------"
+		echo "Vamos a instalar -U nltk"
+		sudo pip3 install nltk
+		echo "--------------------------------------------------------"
+		echo "Instalado"
+		echo "--------------------------------------------------------"
+	else
+		echo "--------------------------------------------------------"
+		echo "-U nltk ya estaba instalado"
+		echo "--------------------------------------------------------"
+	fi
+	aux=$(aptitude show python-argparse | grep "State: installed")
+	aux2=$(aptitude show python-argparse| grep "Estado: instalado")
+	aux3=$aux$aux2
+	if [ -z "$aux3" ]
+	then 	
+		echo "--------------------------------------------------------"
+		echo "Vamos a instalar -y python-argparse"
+		sudo apt-get install -y python-argparse
+		echo "--------------------------------------------------------"
+		echo "Instalado"
+		echo "--------------------------------------------------------"
+	else
+		echo "--------------------------------------------------------"
+		echo "-y python-argparse ya estaba instalado"
+		echo "--------------------------------------------------------"
+	fi
+	#cd python3envmetrix/bin/ 
+	deactivate
 #Hay que iniciar el entorno virtual para instalar todo esto de abajo
 #sudo apt install python-numpy 
 #o
