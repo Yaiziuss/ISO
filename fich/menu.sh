@@ -117,15 +117,15 @@ function testPHP()
 		echo "hello hello"
 	    	echo "Testeando PHP..."
 		echo "--------------------------------------------------------"
-		#sudo chmod u+x /tmp/test.php
+		sudo chmod u+x /tmp/test.php
 		sudo source /tmp/test.php
 		echo "<?php phpinfo(); ?>" >> /tmp/test.php 
 		echo "--------------------------------------------------------"
 		sudo mv /tmp/test.php /var/www/html/test.php
 		echo "--------------------------------------------------------"
-		sudo chmod 644 /var/www/html/test.php
+		sudo chmod u+x /var/www/html/test.php
 		echo "--------------------------------------------------------"
-		firefox 127.0.0.1/test.php
+		firefox http://127.0.0.1/test.php
 		echo "--------------------------------------------------------"
 }
 
@@ -231,14 +231,14 @@ function instalarPaquetes(){
 	if [ -z "$aux3" ]
 	then 	
 		echo "--------------------------------------------------------"
-		echo "Vamos a instalar -U nltk"
-		sudo pip3 install -U nltk
+		echo "Vamos a instalar nltk"
+		sudo pip3 install nltk
 		echo "--------------------------------------------------------"
 		echo "Instalado"
 		echo "--------------------------------------------------------"
 	else
 		echo "--------------------------------------------------------"
-		echo "-U nltk ya estaba instalado"
+		echo " nltk ya estaba instalado"
 		echo "--------------------------------------------------------"
 	fi
 	aux=$(aptitude show python-argparse | grep "State: installed")
@@ -287,7 +287,7 @@ function probarAplicacion()
 function instalarAplicacion(){
 	sudo cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
 	sudo cp -R python3envmetrix /var/www/html
-	sudo chown -R xabier /var/www
+	sudo chown -R yaiza /var/www
 	#sudo chmod u+x /var/www/html
 	sudo cd /var/www/html
 	#sudo chmod u+x ./webprocess.sh
@@ -299,9 +299,11 @@ function instalarAplicacion(){
 #                  9) Abrir con Firefox                   #
 ###########################################################
 function abrirFirefox(){
+	source python3envmetrix/bin/activate
 	echo "--------------------------------------------------------"
 	sudo mv /tmp/index.php /var/www/html/index.php
 	echo "--------------------------------------------------------"
+	sudo chomod 644 /var/www/html/index.php
 	echo "Abriendo la Aplicación desde Firefox"
 	echo "--------------------------------------------------------"
 	firefox http://localhost/index.php &
@@ -318,6 +320,7 @@ function verLogs() {
 #          11) Controlar intentos de conexión             #
 ###########################################################
 function controlarConexion(){
+	echo "--------------------------------------------------------"
 	cd /var/log/
 	sudo chmod -R 777 /tmp/
 	comprimidos="/tmp/aux.txt"
@@ -326,9 +329,11 @@ function controlarConexion(){
 	zcat -f $ver > $comprimidos
 	cat /var/log/auth.log /var/log/auth.log.1 > $archivos
 	echo -e "Los ficheros con los que estamos trabajando son $archivos $comprimidos "
+	echo "--------------------------------------------------------"	
 	cat $archivos $comprimidos | grep sshd | grep "Failed password" | tr -s " " > /tmp/logfailtratados.txt
 	echo -e "Los intentos de conexion ssh en formato dd/mm/yyyy "
 	IFS=$'\n'
+	echo "--------------------------------------------------------"	
 	for linea in $(less "/tmp/logfailtratados.txt")
 		do
 			
