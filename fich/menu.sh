@@ -287,7 +287,7 @@ function probarAplicacion()
 function instalarAplicacion(){
 	sudo cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
 	sudo cp -R python3envmetrix /var/www/html
-	sudo chown -R yaiza /var/www
+	sudo chown -R xabier /var/www
 	#sudo chmod u+x /var/www/html
 	sudo cd /var/www/html
 	#sudo chmod u+x ./webprocess.sh
@@ -319,21 +319,24 @@ function verLogs() {
 ###########################################################
 function controlarConexion(){
 	cd /var/log/
+	sudo chmod -R 777 /tmp/
 	comprimidos="/tmp/aux.txt"
 	archivos="/tmp/aux2.txt"
-	ver=ls auth.log*.gz
-	zcat $ver > $comprimidos
+	ver="auth.log.*.gz"
+	zcat -f $ver > $comprimidos
 	cat /var/log/auth.log /var/log/auth.log.1 > $archivos
 	echo -e "Los ficheros con los que estamos trabajando son $archivos $comprimidos "
-	cat $archivos $comprimidos | grep sshd| grep "Failed password" | tr -s " "| tr " " "0"> /tmp/logfailtratados.txt
+	cat $archivos $comprimidos | grep sshd | grep "Failed password" | tr -s " " > /tmp/logfailtratados.txt
 	echo -e "Los intentos de conexion ssh en formato dd/mm/yyyy "
-	for linea in less /tmp/logfailtratados.txt
-		do 
-		usuarios=$(echo $linea | cut -f9 -d "0")
-		fecha=$(echo $linea | cut -f1 -3 -d "0")
-		echo -e "Status [fail] nombre: $usuario fecha:" echo $fecha|tr "0" ""
-	done 
-	echo u 
+	IFS=$'\n'
+	for linea in $(less "/tmp/logfailtratados.txt")
+		do
+			
+			nombre=$(echo $linea | cut -d ' ' -f 4 )
+			fecha=$(echo $linea | cut -c 1-15)
+			echo -e "Status [fail] nombre: $nombre fecha: $fecha"
+		done
+#| grep sshd| grep "Failed password" | tr -s " "
 }
 
 
@@ -353,8 +356,8 @@ function fin()
 
 ### Main ###
 opcionmenuppal=0
-sudo apt-get update
-sudo apt-get upgrade
+#sudo apt-get update
+#sudo apt-get upgrade
 echo -e "\n"
 while test $opcionmenuppal -ne 12
 do
