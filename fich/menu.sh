@@ -273,7 +273,8 @@ function instalarPaquetes(){
 function probarAplicacion()
 {
 	echo "--------------------------------------------------------"
-	 cd proyecto/ISO/fich/
+	cd
+	cd proyecto/ISO/fich/
         source python3envmetrix/bin/activate
         python3 complejidadtextual.py textos/english.doc.txt
         deactivate
@@ -286,9 +287,9 @@ function probarAplicacion()
 function instalarAplicacion(){
 	sudo cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
 	sudo cp -R python3envmetrix /var/www/html
-	sudo chmod 744 /var/www/html
+	sudo chmod -R 777 /var/www/html
 	sudo cd /var/www/html
-	./webprocess.sh   english.doc.txt
+	./webprocess.sh   textos/english.doc.txt
 	
 }
 
@@ -317,7 +318,22 @@ function verLogs()
 ###########################################################
 function controlarConexion()
 {
-	echo u
+	cd /var/log/
+	comprimidos="/tmp/aux.txt"
+	archivos="/tmp/aux2.txt"
+	ver=ls auth.log*.gz
+	zcat $ver > $comprimidos
+	cat /var/log/auth.log /var/log/auth.log.1 > $archivos
+	echo -e "Los ficheros con los que estamos trabajando son $archivos $comprimidos "
+	cat $archivos $comprimidos | grep sshd| grep "Failed password" | tr -s " "| tr " " "0"> /tmp/logfailtratados.txt
+	echo -e "Los intentos de conexion ssh en formato dd/mm/yyyy "
+	for linea in less /tmp/logfailtratados.txt
+		do 
+		usuarios=$(echo $linea | cut -f9 -d "0")
+		fecha=$(echo $linea | cut -f1 -3 -d "0")
+		echo -e "Status [fail] nombre: $usuario fecha:" echo $fecha|tr "0" ""
+	done 
+	echo u 
 }
 
 ###########################################################
@@ -336,8 +352,8 @@ function fin()
 
 ### Main ###
 opcionmenuppal=0
-sudo apt-get update
-sudo apt-get upgrade
+#sudo apt-get update
+#sudo apt-get upgrade
 echo -e "\n"
 while test $opcionmenuppal -ne 12
 do
