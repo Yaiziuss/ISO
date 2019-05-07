@@ -117,7 +117,8 @@ function testPHP()
 		echo "hello hello"
 	    	echo "Testeando PHP..."
 		echo "--------------------------------------------------------"
-		sudo touch /tmp/test.php
+		#sudo chmod u+x /tmp/test.php
+		sudo source /tmp/test.php
 		echo "<?php phpinfo(); ?>" >> /tmp/test.php 
 		echo "--------------------------------------------------------"
 		sudo mv /tmp/test.php /var/www/html/test.php
@@ -273,8 +274,7 @@ function instalarPaquetes(){
 function probarAplicacion()
 {
 	echo "--------------------------------------------------------"
-	cd
-	cd proyecto/ISO/fich/
+	# cd proyecto/ISO/fich/
         source python3envmetrix/bin/activate
         python3 complejidadtextual.py textos/english.doc.txt
         deactivate
@@ -287,9 +287,11 @@ function probarAplicacion()
 function instalarAplicacion(){
 	sudo cp index.php webprocess.sh complejidadtextual.py textos/english.doc.txt /var/www/html
 	sudo cp -R python3envmetrix /var/www/html
-	sudo chmod -R 777 /var/www/html
+	sudo chown -R yaiza /var/www
+	#sudo chmod u+x /var/www/html
 	sudo cd /var/www/html
-	./webprocess.sh   textos/english.doc.txt
+	#sudo chmod u+x ./webprocess.sh
+	./webprocess.sh   english.doc.txt
 	
 }
 
@@ -308,16 +310,14 @@ function abrirFirefox(){
 ###########################################################
 #                        10) Ver logs                     #
 ###########################################################
-function verLogs()
-{
-	echo u
+function verLogs() {
+	tail -n 100 /var/log/apache2/error.log
 }
 
 ###########################################################
 #          11) Controlar intentos de conexión             #
 ###########################################################
-function controlarConexion()
-{
+function controlarConexion(){
 	cd /var/log/
 	comprimidos="/tmp/aux.txt"
 	archivos="/tmp/aux2.txt"
@@ -336,6 +336,7 @@ function controlarConexion()
 	echo u 
 }
 
+
 ###########################################################
 #                     12) SALIR                          #
 ###########################################################
@@ -352,8 +353,8 @@ function fin()
 
 ### Main ###
 opcionmenuppal=0
-#sudo apt-get update
-#sudo apt-get upgrade
+sudo apt-get update
+sudo apt-get upgrade
 echo -e "\n"
 while test $opcionmenuppal -ne 12
 do
